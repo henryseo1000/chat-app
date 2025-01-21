@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, Image, StyleSheet, Text, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../modules/redux/RootReducer';
+import { setTemplate } from '../../modules/redux/slice/AccountSlice';
 
 function HomeScreen({navigation} : any) {
   const dispatch = useDispatch();
@@ -38,7 +39,10 @@ function HomeScreen({navigation} : any) {
 
       <Button
         title="Logout"
-        onPress={() => navigation.navigate('Login')}
+        onPress={() => {
+          navigation.navigate('Login');
+          dispatch(setTemplate({userName: "", userId: ""}));
+        }}
       />
     </View>
   )

@@ -2,16 +2,20 @@ import { useMutation } from 'convex/react';
 import React, { useState } from 'react'
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native'
 import { api } from '../../convex/_generated/api';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../modules/redux/RootReducer';
+import messaging from '@react-native-firebase/messaging';
+import { toast } from 'sonner-native';
 
 function InputArea() {
     const sendMessage = useMutation(api.chat.sendMessage);
-    const [newInput, setNewInput] = useState('');
-
-    const dispatch = useDispatch();
+    const [newInput, setNewInput] = useState<string>('');
 
     const userInfo = useSelector((state: RootState) => state.template);
+
+    messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+        
+    });
 
     return (
         <View style={st.areaContainer}>
@@ -24,8 +28,15 @@ function InputArea() {
             <TouchableOpacity
                 style={st.sendButton}
                 onPress={async (e) => {
-                    await sendMessage({ user: userInfo.userId, body: newInput });
-                    setNewInput("");
+                    if (newInput === '') { 
+                        toast('메시지를 입력해주세요!');
+                    }
+                    else {
+                        sendMessage({ user: userInfo.userId, body: newInput }).then(() => {
+                            toast.success('메시지가 전송되었습니다!');
+                            setNewInput("");
+                        });
+                    }
                 }}
             >
                 <Text 
