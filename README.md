@@ -1,4 +1,4 @@
-# chatApp - Convex와 Redux, React-Native를 이용해 만든 채팅앱
+# chat-app - Convex와 Redux, React-Native를 이용해 만든 채팅앱
 > 처음으로 하루만에 빠르게 끝낸 토이프로젝트입니다. 시간은 순수 8시간 정도 걸렸습니다.
 
 > Redux 공부와 면접 준비를 위해 만들었습니다.
